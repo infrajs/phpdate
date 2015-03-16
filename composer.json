@@ -1,0 +1,13 @@
+{
+    "name": "akiyatkin/phpdate",
+    "description": "javascript function date like php date",
+    "license": "GPL3",
+    "authors": [
+        {
+            "name": "Anton Kiyatkin",
+            "email": "aky@list.ru"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
