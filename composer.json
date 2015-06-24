@@ -1,11 +1,11 @@
 {
-    "name": "akiyatkin/phpdate",
+    "name": "itlife/phpdate",
     "description": "javascript function date like php date",
     "license": "GPL3",
     "authors": [
         {
-            "name": "Anton Kiyatkin",
-            "email": "aky@list.ru"
+            "name": "itlife",
+            "email": "info@itlife-studio.ru"
         }
     ],
     "minimum-stability": "stable",
