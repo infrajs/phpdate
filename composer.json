@@ -2,6 +2,7 @@
     "name": "itlife/phpdate",
     "description": "javascript function date like php date",
     "license": "GPL3",
+    "minimum-stability": "dev",
     "authors": [{
         "name": "itlife",
         "email": "info@itlife-studio.ru"
