@@ -1,9 +1,9 @@
 {
-    "name": "itlife/phpdate",
-    "description": "javascript function date like php date",
-    "license": "GPL3",
-    "authors": [{
-        "name": "itlife",
-        "email": "info@itlife-studio.ru"
-    }]
+	"name": "itlife/phpdate",
+	"description": "javascript function date like php date",
+	"license": "GPL3",
+	"authors": [{
+		"name": "itlife",
+		"email": "info@itlife-studio.ru"
+	}]
 }
