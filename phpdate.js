@@ -1,5 +1,5 @@
 (function(){
-	phpdate=function(format, timestamp) {
+	window.phpdate=function(format, timestamp) {
 		if(timestamp&&!(timestamp instanceof Date)){
 			if((typeof(timestamp)=='string'||typeof(timestamp)=='number')&&String(timestamp).length==13){
 				timestamp=new Date(Number(timestamp));
