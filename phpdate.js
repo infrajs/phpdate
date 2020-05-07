@@ -1,21 +1,21 @@
-(function(){
-	window.phpdate=function(format, timestamp) {
-		if(timestamp&&!(timestamp instanceof Date)){
-			if((typeof(timestamp)=='string'||typeof(timestamp)=='number')&&String(timestamp).length==13){
-				timestamp=new Date(Number(timestamp));
-			}else if(timestamp.length==10){
-				timestamp=new Date(Number(timestamp)*1000);
-			}else if(typeof(timestamp)=='string'&&timestamp.length>10){
-				if(timestamp.length==19){//mysql
+(function () {
+	window.phpdate = function (format, timestamp) {
+		if (timestamp && !(timestamp instanceof Date)) {
+			if ((typeof (timestamp) == 'string' || typeof (timestamp) == 'number') && String(timestamp).length == 13) {
+				timestamp = new Date(Number(timestamp));
+			} else if (timestamp.length == 10) {
+				timestamp = new Date(Number(timestamp) * 1000);
+			} else if (typeof (timestamp) == 'string' && timestamp.length > 10) {
+				if (timestamp.length == 19) {//mysql
 					// Split timestamp into [ Y, M, D, h, m, s ]
 					//var t = "2010-06-09 13:12:01".split(/[- :]/);
-					t=timestamp.split(/[- :]/);
+					let t = timestamp.split(/[- :]/);
 					// Apply each element to the Date function
-					timestamp = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
-				}else if(/[\+\-]/.test(timestamp)){//Например Fri, 12 Aug 2011 18:01:00 +0400
-					timestamp=new Date(timestamp);
+					timestamp = new Date(t[0], t[1] - 1, t[2], t[3], t[4], t[5]);
+				} else if (/[\+\-]/.test(timestamp)) {//Например Fri, 12 Aug 2011 18:01:00 +0400
+					timestamp = new Date(timestamp);
 				}
-			}else if(timestamp.length==6){//Принимает 6 цифр годмесяцдень
+			} else if (timestamp.length == 6) {//Принимает 6 цифр годмесяцдень
 				//F - Родительский падеж месяца
 				//f - Именительный падеж месяца
 				//Y - 4х значный год
@@ -23,24 +23,24 @@
 				//d - 2х значный день
 				//j - без нуля день
 				//i:H:s
-				var num=new String(timestamp);
-				var y='20'+num.charAt(0)+num.charAt(1);
-				var m=num.charAt(2)+num.charAt(3);
-				var d=num.charAt(5);
-				if(num.charAt(4)!='0'){
-					d=num.charAt(4)+d;
+				var num = new String(timestamp);
+				var y = '20' + num.charAt(0) + num.charAt(1);
+				var m = num.charAt(2) + num.charAt(3);
+				var d = num.charAt(5);
+				if (num.charAt(4) != '0') {
+					d = num.charAt(4) + d;
 				}
-				date=new Date();
+				date = new Date();
 				date.setFullYear(y);
-				date.setMonth(m-1,d);
+				date.setMonth(m - 1, d);
 				date.setDate(d);
-				date.setHours(0,0,0,0);
-				timestamp=date;
+				date.setHours(0, 0, 0, 0);
+				timestamp = date;
 			}
-		}else if(!timestamp){
-			timestamp=new Date();
+		} else if (!timestamp) {
+			timestamp = new Date();
 		}
-		if(!format)return timestamp;
+		if (!format) return timestamp;
 		//F - месяц в родительном падеже по русски
 
 		// http://kevin.vanzonneveld.net
@@ -103,16 +103,16 @@
 					return n;
 				}
 			},
-			month=phpdate.month,
-					txt_ordin = {
+			month = phpdate.month,
+			txt_ordin = {
 				1: "st",
 				2: "nd",
 				3: "rd",
-				21: "st", 
+				21: "st",
 				22: "nd",
 				23: "rd",
 				31: "st"
-			};
+			},
 			txt_words = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота",
 			"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль",
 			"Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
@@ -120,7 +120,7 @@
 				1: "st",
 				2: "nd",
 				3: "rd",
-				21: "st", 
+				21: "st",
 				22: "nd",
 				23: "rd",
 				31: "st"
@@ -129,7 +129,7 @@
 			return f[t] ? f[t]() : s;
 		};
 		f = {
-		// Day
+			// Day
 			d: function () { // Day of month w/leading 0; 01..31
 				return _pad(f.j(), 2);
 			},
@@ -157,19 +157,19 @@
 				return Math.round((a - b) / 864e5) + 1;
 			},
 
-		// Week
+			// Week
 			W: function () { // ISO-8601 week number
 				var a = new Date(f.Y(), f.n() - 1, f.j() - f.N() + 3),
 					b = new Date(a.getFullYear(), 0, 4);
 				return 1 + Math.round((a - b) / 864e5 / 7);
 			},
 
-		// Month
-			F:function () { // Full month name; January...December
-				return (month[f.n()-1])?month[f.n()-1][1]:'?';//Родительный падеж
+			// Month
+			F: function () { // Full month name; January...December
+				return (month[f.n() - 1]) ? month[f.n() - 1][1] : '?';//Родительный падеж
 			},
-			f:function () { // Full month name; January...December
-				return month[f.n()-1][0];//Именительный падеж
+			f: function () { // Full month name; January...December
+				return month[f.n() - 1][0];//Именительный падеж
 			},
 			m: function () { // Month w/leading 0; 01...12
 				return _pad(f.n(), 2);
@@ -184,7 +184,7 @@
 				return (new Date(f.Y(), f.n(), 0)).getDate();
 			},
 
-		// Year
+			// Year
 			L: function () { // Is leap year?; 0 or 1
 				var y = f.Y(), a = y & 3, b = y % 4e2, c = y % 1e2;
 				return 0 + (!a && (c || !b));
@@ -200,7 +200,7 @@
 				return (f.Y() + "").slice(-2);
 			},
 
-		// Time
+			// Time
 			a: function () { // am or pm
 				return jsdate.getHours() > 11 ? "pm" : "am";
 			},
@@ -235,26 +235,26 @@
 				return _pad(jsdate.getMilliseconds() * 1000, 6);
 			},
 
-		// Timezone
+			// Timezone
 			e: function () { // Timezone identifier; e.g. Atlantic/Azores, ...
-	// The following works, but requires inclusion of the very large
-	// timezone_abbreviations_list() function.
-	/*			  var abbr = '', i = 0, os = 0;
-				if (that.php_js && that.php_js.default_timezone) {
-					return that.php_js.default_timezone;
-				}
-				if (!tal.length) {
-					tal = that.timezone_abbreviations_list();
-				}
-				for (abbr in tal) {
-					for (i = 0; i < tal[abbr].length; i++) {
-						os = -jsdate.getTimezoneOffset() * 60;
-						if (tal[abbr][i].offset === os) {
-							return tal[abbr][i].timezone_id;
-						}
-					}
-				}
-	*/
+				// The following works, but requires inclusion of the very large
+				// timezone_abbreviations_list() function.
+				/*			  var abbr = '', i = 0, os = 0;
+							if (that.php_js && that.php_js.default_timezone) {
+								return that.php_js.default_timezone;
+							}
+							if (!tal.length) {
+								tal = that.timezone_abbreviations_list();
+							}
+							for (abbr in tal) {
+								for (i = 0; i < tal[abbr].length; i++) {
+									os = -jsdate.getTimezoneOffset() * 60;
+									if (tal[abbr][i].offset === os) {
+										return tal[abbr][i].timezone_id;
+									}
+								}
+							}
+				*/
 				return 'UTC';
 			},
 			I: function () { // DST observed?; 0 or 1
@@ -275,38 +275,38 @@
 				return (O.substr(0, 3) + ":" + O.substr(3, 2));
 			},
 			T: function () { // Timezone abbreviation; e.g. EST, MDT, ...
-	// The following works, but requires inclusion of the very
-	// large timezone_abbreviations_list() function.
-	/*			  var abbr = '', i = 0, os = 0, default = 0;
-				if (!tal.length) {
-					tal = that.timezone_abbreviations_list();
-				}
-				if (that.php_js && that.php_js.default_timezone) {
-					default = that.php_js.default_timezone;
-					for (abbr in tal) {
-						for (i=0; i < tal[abbr].length; i++) {
-							if (tal[abbr][i].timezone_id === default) {
-								return abbr.toUpperCase();
+				// The following works, but requires inclusion of the very
+				// large timezone_abbreviations_list() function.
+				/*			  var abbr = '', i = 0, os = 0, default = 0;
+							if (!tal.length) {
+								tal = that.timezone_abbreviations_list();
 							}
-						}
-					}
-				}
-				for (abbr in tal) {
-					for (i = 0; i < tal[abbr].length; i++) {
-						os = -jsdate.getTimezoneOffset() * 60;
-						if (tal[abbr][i].offset === os) {
-							return abbr.toUpperCase();
-						}
-					}
-				}
-	*/
+							if (that.php_js && that.php_js.default_timezone) {
+								default = that.php_js.default_timezone;
+								for (abbr in tal) {
+									for (i=0; i < tal[abbr].length; i++) {
+										if (tal[abbr][i].timezone_id === default) {
+											return abbr.toUpperCase();
+										}
+									}
+								}
+							}
+							for (abbr in tal) {
+								for (i = 0; i < tal[abbr].length; i++) {
+									os = -jsdate.getTimezoneOffset() * 60;
+									if (tal[abbr][i].offset === os) {
+										return abbr.toUpperCase();
+									}
+								}
+							}
+				*/
 				return 'UTC';
 			},
 			Z: function () { // Timezone offset in seconds (-43200...50400)
 				return -jsdate.getTimezoneOffset() * 60;
 			},
 
-		// Full Date/Time
+			// Full Date/Time
 			c: function () { // ISO-8601 date.
 				return 'Y-m-d\\Th:i:sP'.replace(formatChr, formatChrCb);
 			},
@@ -317,31 +317,30 @@
 				return jsdate.getTime() / 1000 | 0;
 			}
 		};
-		this.date = function (format, timestamp) {
-			that = this;
+		let date = function (format, timestamp) {
 			jsdate = (
 				(typeof timestamp === 'undefined') ? new Date() : // Not provided
-				(timestamp instanceof Date) ? timestamp : // JS Date()
-				new Date(timestamp * 1000) // UNIX timestamp (auto-convert to int)
+					(timestamp instanceof Date) ? timestamp : // JS Date()
+						new Date(timestamp * 1000) // UNIX timestamp (auto-convert to int)
 			);
-			if(jsdate=='Invalid Date')return timestamp;
-			if(format=='!')return jsdate;
+			if (jsdate == 'Invalid Date') return timestamp;
+			if (format == '!') return jsdate;
 			return format.replace(formatChr, formatChrCb);
 		};
-		return this.date(format, timestamp);
+		return date(format, timestamp);
 	}
-	phpdate.month=[
-		['январь','января','Янв'],
-		['февраль','февраля','Фев'],
-		['март','марта','Мар'],
-		['апрель','апреля','Апр'],
-		['май','мая','Май'],
-		['июнь','июня','Июн'],
-		['июль','июля','Июл'],
-		['август','августа','Авг'],
-		['сентябрь','сентября','Сен'],
-		['октябрь','октября','Окт'],
-		['ноябрь','ноября','Ноя'],
-		['декабрь','декабря','Дек']
+	phpdate.month = [
+		['январь', 'января', 'Янв'],
+		['февраль', 'февраля', 'Фев'],
+		['март', 'марта', 'Мар'],
+		['апрель', 'апреля', 'Апр'],
+		['май', 'мая', 'Май'],
+		['июнь', 'июня', 'Июн'],
+		['июль', 'июля', 'Июл'],
+		['август', 'августа', 'Авг'],
+		['сентябрь', 'сентября', 'Сен'],
+		['октябрь', 'октября', 'Окт'],
+		['ноябрь', 'ноября', 'Ноя'],
+		['декабрь', 'декабря', 'Дек']
 	];
 })();
