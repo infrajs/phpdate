@@ -29,7 +29,7 @@ let phpdate = function (format, timestamp) {
 			if (num.charAt(4) != '0') {
 				d = num.charAt(4) + d;
 			}
-			date = new Date();
+			let date = new Date();
 			date.setFullYear(y);
 			date.setMonth(m - 1, d);
 			date.setDate(d);
